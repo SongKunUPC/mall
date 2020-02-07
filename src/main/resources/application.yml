@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Sk_13156038163
+
+# 指定mybatis配置文件和映射文件的位置
+#  config-location: classpath:mybatis/mybatis-config.xml
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+mybatis:
+  mapper-locations:
+    # classpath后面不能有空格
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+
+# 设置controller包日志级别为debug
+logging:
+  level:
+    com:
+      sk:
+        mall:
+          controller:
+            debug
+

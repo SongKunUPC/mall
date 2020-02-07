@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <!--配置顺序应不变，不然报错-->
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--defaultModelType:定义了如何生成实体类。该属性有以下可选值:
+        conditional:默认值，和下面的hierarchical 类似，如果一个表的主键只有一个字段，
+                        那么不会为该字段生成单独的实体类，而是会将该字段合并到基本实体类中。
+            flat:该模型只为每张表生成一个实体类。这个实体类包含表中的所有字段。
+                 这种模型最简单，推荐使用。
+        hierarchical:如果表有主键，那么该模型会产生一个单独的主键实体类，如果表还有BLOB 字段，
+                     则会为表生成一个包含所有BLOB 字段的单独的实体类，
+                     然后为所有其他的字段另外生成一个单独的实体类。
+                     MBG 会在所有生成的实体类之间维护一个继承关系。-->
+        <!--targetRuntime:此属性用于指定生成的代码的运行时环境，
+        MyBatis3 ： 默认值。
+        MyBatis3Simple ： 这种情况不会生成与Example 相关的方法。-->
+        <!--给关键字添加分隔符的属性。
+            <property name="autoDelimitKeywords" value="true"/>
+            beginningDelimiter:配置前置分隔符的属性。
+            endingDelimiter:配置后置分隔符的属性。
+        -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--可以自定义生成model的代码注释-->
+        <commentGenerator type="com.sk.mall.mbg.CommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--配置数据库连接-->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <!--targetPackage：生成实体类存放的包名。一般就是放在该包下，实际还会受到其他配置的影响。(必选)
+            targetProject：指定目标项目路径，可以使用相对路径或绝对路径。(必选)-->
+        <!--指定生成model的路径-->
+        <javaModelGenerator targetPackage="com.sk.mall.mbg.model"
+                            targetProject="src/main/java"></javaModelGenerator>
+        <!--指定声明mapper.xml的路径-->
+        <sqlMapGenerator targetPackage="com.sk.mall.mbg.mapper"
+                         targetProject="src/main/resources"></sqlMapGenerator>
+        <!--指定生成mapper接口的路径-->
+        <!--type：用于选择客户端代码（Mapper接口）生成器，用户可以自定义实现， 需要继承指定的类，且必须有一个默认空的构造方法。。该属性提供了以下预设的代码生成器：(必选)
+            MyBatis3：
+                    ANNOTATEDMAPPER：基于注解的Mapper接口，不会有对应的XML 映射文件。
+                    MIXEDMAPPER:XML和注解的混合形式，上面这种情况中的SQLProvider注解方法会被XML方式替代。
+                    XMLMAPPER：所有的方法都在XML中，接口调用依赖XML文件。
+            MyBatis3Simple：
+                    ANNOTATEDMAPPER：基于注解的Mapper接口，不会有对应的XML 映射文件。
+                    XMLMAPPER：所有的方法都在XML中，接口调用依赖XML文件。
+            还有一个可选属性implementationPackage，如果指定了该属性，Mapper 接口的实现类就会生成在这个属性指定的包中。
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sk.mall.mbg.mapper"
+                             targetProject="src/main/java"></javaClientGenerator>
+        <!--配置需要通过内省数据库的表，只有在table中配置过的表，才能经过上述其他配置生成最终的代码，
+            该标签至少要配置一个，可以配置多个。
+            如要生成全部的表，可以如下配置：
+            <table tableName ＝"%"/>
+            tableName:指定要生成的表名，可以使用SQL通配符匹配多个表。(必选)
+            schema：数据库的schema，可以使用SQL通配符匹配。如果设置了该值,生成SQL的表名会变成如schema.tableName的形式。
+            catalog：数据库的catalog，如果设置了该值，生成SQL的表名会变成如catalog.tableName 的形式。
+            alias：如果指定，这个值会用在生成的select查询SQL表的别名和列名上，例如alias_actualColumnName （别名_实际列名）。
+            domainObjectName：生成对象的基本名称。如果没有指定，生成器会自动根据表名来生成名称。
+            enableXXX:XXX代表多种SQL方法，该属性用来指定是否生成对应的xxx语句。
+            -->
+        <table tableName="pms_brand">
+            <!--identity: 设置true，在插入语句后执行select语句返回对象的id值，只对自增主键有效，默认false-->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
