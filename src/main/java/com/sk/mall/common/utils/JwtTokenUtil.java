@@ -14,11 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * JWT生成的Token由三部分组成：
+ * 1. 头部：主要设置一些规范信息，签名部分的编码格式就在头部声明
+ * 2. 载荷：token中存在有效信息的部分，比如用户名，角色，过期时间等，但是不要放密码。
+ * 3. 签名：将头部和载荷分别采用base64编码后，用"."相连，再加入【盐】，最后使用头部声明的编码类型进行编码，就得到了签名
+ *
  * JwtToken生成的工具类
  * Jwt token的格式：header.payload.signature
  * header的格式（存放算法、token的类型）:
  * {"alg":"HS512","type":"JWT"}
- * payload的格式（用户名、创建时间、过期时间）:
+ * 载荷：payload的格式（用户名、创建时间、过期时间）:
  * {"sub": "song","created":1489079981393,"exp":1489684781}
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
@@ -41,10 +46,10 @@ public class JwtTokenUtil {
      * 根据附载生成JWT的token
      */
     private String generateToken(Map<String, Object> claims) {
-        return Jwts.builder()
+            return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.ES512, secret)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 

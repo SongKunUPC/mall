@@ -20,7 +20,7 @@ class MallApplicationTests {
         Logger logger = LoggerFactory.getLogger(getClass());
         logger.trace("这是trace日志...");
         logger.debug("这是debug日志");
-
+        // 默认输出以下级别的日志
         logger.info("这是info日志...");
         logger.warn("这是warn日志...");
         logger.error("这是error日志...");

@@ -78,11 +78,7 @@ mybatis:
 # 设置controller包日志级别为debug
 logging:
   level:
-    com:
-      sk:
-        mall:
-          controller:
-            debug
+    com.sk.mall.controller: debug
 
 
 # 自定义jwt key
