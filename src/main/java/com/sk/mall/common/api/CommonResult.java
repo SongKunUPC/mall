@@ -94,6 +94,10 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
 
+    public static <T> CommonResult<T> failed() {
+        return failed(ResultCode.FAILED);
+    }
+
     public long getCode() {
         return code;
     }

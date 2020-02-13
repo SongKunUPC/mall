@@ -1,15 +1,12 @@
 package com.sk.mall.common.utils;
 
-import com.sk.mall.dto.AdminUserDetail;
+import com.sk.mall.dto.AdminUserDetails;
 import com.sk.mall.mbg.model.UmsAdmin;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Created by SongKun on 2020/2/12 8:40 下午
@@ -23,8 +20,8 @@ public class JwtTokenUtilTest {
     @Test
     public void testGenerateToken(){
         UmsAdmin umsAdmin =new UmsAdmin();
-        umsAdmin.setUsername("songkun");
-        UserDetails userDetails =new AdminUserDetail(umsAdmin,null);
+        umsAdmin.setUsername("test");
+        UserDetails userDetails =new AdminUserDetails(umsAdmin,null);
         System.out.println(jwtTokenUtil.generateToken(userDetails));
     }
 
@@ -34,4 +31,14 @@ public class JwtTokenUtilTest {
         String name = jwtTokenUtil.getUserNameFromToken(token);
         System.out.println(name);
     }
+
+    @Test
+    public void testPassword(){
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encode = bCryptPasswordEncoder.encode("123456");
+        System.out.println(encode);
+
+    }
+
 }

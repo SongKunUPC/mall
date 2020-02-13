@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 /**
  * Created by SongKun on 2020/2/9 6:12 下午
  */
-public class AdminUserDetail implements UserDetails {
+public class AdminUserDetails implements UserDetails {
 
     private UmsAdmin umsAdmin;
     private List<UmsPermission> permissionList;
 
-    public AdminUserDetail(UmsAdmin umsAdmin,List<UmsPermission> permissionList){
+    public AdminUserDetails(UmsAdmin umsAdmin, List<UmsPermission> permissionList){
         this.umsAdmin = umsAdmin;
         this.permissionList = permissionList;
     }
