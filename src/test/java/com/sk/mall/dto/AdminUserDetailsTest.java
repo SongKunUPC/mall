@@ -30,5 +30,6 @@ public class AdminUserDetailsTest {
         Collection<? extends GrantedAuthority> authorities = adminUserDetails.getAuthorities();
         System.out.println(authorities);
     }
+    
 }
 

@@ -65,8 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
                 .permitAll()
-                .antMatchers("/**")//测试时全部运行访问
+                .antMatchers("/esProduct/**","/member/readHistory/**","/order/**")// 搜索及会员浏览记录暂时允许匿名访问
                 .permitAll()
+               //.antMatchers("/**")//测试时全部允许访问
+               //.permitAll()
                 .anyRequest()// 除上面外的所有请求全部需要鉴权认证
                 .authenticated();
         // 禁用缓存
